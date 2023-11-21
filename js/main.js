@@ -94,40 +94,29 @@
         // Handle error (e.g., show an error message)
     });
 }
-function materialData() {
-  // Display the spinner while fetching data
-  materialTemplate.innerHTML = spinner;
-
+function materials() {
+  materialList.innerHTML = spinner;
   fetch("https://swiftpixel.com/earbud/api/materials")
   .then(response => response.json())
   .then(materialListData => {
-    const div = document.createElement('div');
-    div.id = 'material-list';
+      materialList.innerHTML = ''; // Clear the spinner
+      materialListData.forEach(material => {
+          const headingElement = document.createElement('h3');
+          headingElement.textContent = material.heading;
 
-    materialListData.forEach(material => {
-      const headingElement = document.createElement('h3');
-      headingElement.textContent = material.heading;
+          const descriptionElement = document.createElement('p');
+          descriptionElement.textContent = material.description;
 
-      const descriptionElement = document.createElement('p');
-      descriptionElement.textContent = material.description;
-
-      div.appendChild(headingElement);
-      div.appendChild(descriptionElement);
-    });
-
-    // Replace the spinner with the actual content
-    materialTemplate.innerHTML = '';
-    materialTemplate.appendChild(div);
+          materialList.appendChild(headingElement);
+          materialList.appendChild(descriptionElement);
+      });
   })
   .catch(error => {
-    console.error('Fetch error:', error);
-    materialListContainer.innerHTML = 'Error loading materials';
+      console.error('Fetch error:', error);
+      materialList.innerHTML = 'Error loading materials';
   });
 }
-
-// Call the function to start fetching data
-materialData();
-
+materials ();
 
   function modelLoaded() {
     hotspots.forEach(hotspot => {
