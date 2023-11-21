@@ -3,7 +3,8 @@
   // Variables
   const model = document.querySelector("#model");
   const hotspots = document.querySelectorAll(".Hotspot");
-  const materialListContainer = document.querySelector("#material-list-container");
+  const materialTemplate = document.querySelector("#material-template");
+  const materialList = document.querySelector("#material-list");
   let spinner = `<?xml version="1.0" encoding="utf-8"?>
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgb(255, 255, 255); display: block; shape-rendering: auto;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
   <g transform="translate(80,50)">
@@ -67,16 +68,16 @@
 
   // Functions
   
-  function getData() {
+  function infoBoxes() {
     
     fetch("https://swiftpixel.com/earbud/api/infoboxes")
     .then(response => response.json())
     .then(infoBoxes => {
         infoBoxes.forEach((box, index) => {
-            // Targeting each HotspotAnnotation by ID (e.g., hotspot-1, hotspot-2, ...)
+
             const hotspot = document.getElementById(`hotspot-${index + 1}`);
 
-            // Check if the hotspot exists
+            
             if (hotspot) {
                 hotspot.innerHTML = `
                     <h3>${box.heading}</h3>
@@ -84,8 +85,7 @@
                     <img src="${box.thumbnail}" alt="${box.heading}" />
                 `;
 
-                // Make sure the hotspot is visible
-                hotspot.style.display = "block";
+             
             }
         });
     })
@@ -94,9 +94,9 @@
         // Handle error (e.g., show an error message)
     });
 }
-function fetchMaterialData() {
+function materialData() {
   // Display the spinner while fetching data
-  materialListContainer.innerHTML = spinner;
+  materialTemplate.innerHTML = spinner;
 
   fetch("https://swiftpixel.com/earbud/api/materials")
   .then(response => response.json())
@@ -116,8 +116,8 @@ function fetchMaterialData() {
     });
 
     // Replace the spinner with the actual content
-    materialListContainer.innerHTML = '';
-    materialListContainer.appendChild(div);
+    materialTemplate.innerHTML = '';
+    materialTemplate.appendChild(div);
   })
   .catch(error => {
     console.error('Fetch error:', error);
@@ -126,7 +126,7 @@ function fetchMaterialData() {
 }
 
 // Call the function to start fetching data
-fetchMaterialData();
+materialData();
 
 
   function modelLoaded() {
@@ -134,7 +134,7 @@ fetchMaterialData();
       hotspot.style.display = "block";
     });
     // Fetch data for hotspots after the model has loaded
-    getData();
+    infoBoxes();
   }
 
   function showInfo() {

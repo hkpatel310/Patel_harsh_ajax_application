@@ -150,3 +150,65 @@ model-viewer[ar-status=session-started] > #ar-prompt {
 model-viewer > #ar-prompt > img {
   animation: circle 4s linear infinite;
 }
+
+/* Style the material template container */
+#material-template {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+/* Style the material list container */
+#material-list {
+  margin-top: 10px;
+}
+
+/* Style headings */
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* Style paragraphs */
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Style spinner */
+#spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* Style loading animation (you may need to adjust this based on your design) */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* Apply the loading animation to the spinner */
+#spinner svg {
+  animation: spin 2s linear infinite;
+}
+
+/* Style error message */
+.error-message {
+  color: red;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
